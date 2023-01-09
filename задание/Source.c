@@ -5,7 +5,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <limits.h>
-
+#include <time.h>
 int Int(int* i1);
 int Float(float* m);
 int Double(double* m);
@@ -20,12 +20,14 @@ int main() {
 	vivod();
 }
 int vivod() {
+	clock_t begin = clock();
 	setlocale(LC_ALL, "RU");
 	int i[7],C[3], K[2],N[2], L[2];
 	unsigned int V[2];
 	unsigned long long int J[2];
 	float f[7];
 	double d[7];
+	double time_spent = 0.0;
 	Int(i);
 	Float(f);
 	Double(d);
@@ -35,6 +37,9 @@ int vivod() {
 	UnsignedChar(L);
 	UnsignedInt(V);
 	UnsignedlonglongInt(J);
+	clock_t end = clock();
+	time_spent += (double)(end - begin) / CLOCKS_PER_SEC;
+	printf("\nTime programm %lf sec\n", time_spent);
 	printf("|Тип данных|Размер|Минимальное Значение|Максимальное значение|");
 	printf("\n| int      | байт |%d\t       | %d\t     |", i[3], i[2]);
 	printf("\n| double   | байт |%.0lf\t       | %.0lf\t     |", d[3], d[2]);
