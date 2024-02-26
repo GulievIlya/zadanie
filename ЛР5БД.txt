@@ -1,0 +1,59 @@
+CREATE DATABASE SKLAD
+CREATE TABLE Buyer(
+	idBuyer Bigint PRIMARY KEY IDENTITY(1,1),
+	Name1 Char(256) NULL,
+	quantity Bigint NULL
+
+)
+CREATE TABLE product(
+	idProduct Bigint NOT NULL PRIMARY KEY IDENTITY(1,1),
+	Collor Char(256) NULL,
+	NameProduct Char(256) NULL,
+	quantityProduct Bigint NULL,
+	PriceProduct Money NULL,
+
+)
+CREATE TABLE Producer(
+	IdProducer Bigint NOT NULL,
+	quantityProduct Bigint NULL,
+	PriceProduct Money NULL,
+	NameProduct Char(256) NULL,
+	PRIMARY KEY(IdProducer)
+)
+
+CREATE TABLE BuyReceipt( 
+	IdPurchase Bigint NOT NULL PRIMARY KEY IDENTITY(1,1),
+	quantiteProduct Bigint NULL,
+	NameProduct Char(256) NULL,
+	PriceProduct Money NULL,
+	IdProducer bigint FOREIGN KEY (IdProducer) REFERENCES Producer(IdProducer),
+	idProduct Bigint FOREIGN KEY (idProduct) REFERENCES product(idProduct),
+
+)
+
+CREATE TABLE SellReceipt2(
+	 IDSell Bigint NOT NULL PRIMARY KEY IDENTITY(1,1),
+	 Income Money NULL,
+	 quantityProduct Bigint NULL,
+	 NameProduct Char(256) NULL,
+	 PriceProduct Money NULL,
+	 idBuyer Bigint FOREIGN KEY (idBuyer) REFERENCES Buyer(idBuyer),
+	 IdPurchase Bigint FOREIGN KEY (IdPurchase) REFERENCES BuyReceipt(IdPurchase),
+	 IdProducer bigint FOREIGN KEY (IdProducer) REFERENCES Producer(IdProducer),
+	 idProduct Bigint FOREIGN KEY (idProduct) REFERENCES product(idProduct),
+
+)
+
+
+ALTER TABLE Buyer
+ADD weigth integer NULL
+ALTER TABLE Buyer
+DROP COLUMN quantity;
+ 
+
+INSERT INTO Buyer (idBuyer, Name1, quantity) Values (45,'asd',23);
+SELECT * FROM Buyer
+UPDATE Buyer SET idBuyer=1 WHERE quantity=7; -- 2 значения 
+INSERT INTO Buyer (idBuyer, Name1, quantity) Values (8,'asd',23);
+DELETE FROM Buyer WHERE idBuyer=8; 
+-- функции дропкейт <
